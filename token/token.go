@@ -34,6 +34,9 @@ const (
 	LBRACE = "{"
 	RBRACE = "}"
 
+	EQ = "=="
+	NOT_EQ = "!="
+
 	// keywords
 	FUNCTION = "FUNCTION"
 	LET = "LET"
