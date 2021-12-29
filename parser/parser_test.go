@@ -2,6 +2,7 @@ package parser
 
 import (
 	"testing"
+
 	"github.com/khofesh/ninkasi/ast"
 	"github.com/khofesh/ninkasi/lexer"
 )
@@ -23,7 +24,7 @@ func TestLetStatements(t *testing.T) {
 	}
 	if len(program.Statements) != 3 {
 		t.Fatalf(
-			"program.Statements does not contain 3 statements. got=%d", 
+			"program.Statements does not contain 3 statements. got=%d",
 			len(program.Statements),
 		)
 	}
@@ -58,7 +59,7 @@ func TestReturnStatements(t *testing.T) {
 	checkParserErrors(t, p)
 
 	if len(program.Statements) != 3 {
-		t.Fatalf("program.Statements does not contain 3 statements. got=%d", 
+		t.Fatalf("program.Statements does not contain 3 statements. got=%d",
 			len(program.Statements))
 	}
 
@@ -70,7 +71,7 @@ func TestReturnStatements(t *testing.T) {
 		}
 
 		if returnStmt.TokenLiteral() != "return" {
-			t.Errorf("returnStmt.TokenLiteral not 'return', got %q", 
+			t.Errorf("returnStmt.TokenLiteral not 'return', got %q",
 				returnStmt.TokenLiteral())
 		}
 	}
@@ -94,12 +95,46 @@ func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
 	}
 
 	if letStmt.Name.TokenLiteral() != name {
-		t.Errorf("letStmt.Name.TokenLiteral() not '%s'. got=%s", 
+		t.Errorf("letStmt.Name.TokenLiteral() not '%s'. got=%s",
 			name, letStmt.Name.TokenLiteral())
 		return false
 	}
 
 	return true
+}
+
+func TestIdentifierExpression(t *testing.T) {
+	input := "foobar;"
+
+	l := lexer.New(input)
+	p := New(l)
+	program := p.ParseProgram()
+	checkParserErrors(t, p)
+
+	if len(program.Statements) != 1 {
+		t.Fatalf("program has not enough statements. got=%d",
+			len(program.Statements))
+	}
+
+	stmt, ok := program.Statements[0].(*ast.ExpressionStatement)
+	if !ok {
+		t.Fatalf("program.Statements[0] is not ast.ExpressionStatement. got=%T",
+			program.Statements[0])
+	}
+
+	ident, ok := stmt.Expression.(*ast.Identifier)
+	if !ok {
+		t.Fatalf("exp not *ast.Identifier. got=%T", stmt.Expression)
+	}
+
+	if ident.Value != "foobar" {
+		t.Errorf("ident.Value not %s. got=%s", "foobar", ident.Value)
+	}
+
+	if ident.TokenLiteral() != "foobar" {
+		t.Errorf("ident.TokenLiteral not %s. got=%s", "foobar",
+			ident.TokenLiteral())
+	}
 }
 
 func checkParserErrors(t *testing.T, p *Parser) {
