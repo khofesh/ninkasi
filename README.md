@@ -1,6 +1,6 @@
 # ninkasi
 
-## lexter_test
+## lexer_test
 
 ```shell
 $ go test ./lexer/
