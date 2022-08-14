@@ -14,6 +14,12 @@ $ go test ./parser/
 ok  	github.com/khofesh/ninkasi/parser	0.002s
 ```
 
+trace and untrace
+
+```shell
+go test -v -run TestOperatorPrecedenceParsing ./parser
+```
+
 ## ast
 
 ```shell
