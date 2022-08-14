@@ -3,30 +3,30 @@ package token
 type TokenType string
 
 type Token struct {
-	Type TokenType
+	Type    TokenType
 	Literal string
 }
 
 const (
 	ILLEGAL = "ILLEGAL"
-	EOF = "EOF"
+	EOF     = "EOF"
 
 	// identifiers + literals
-	IDENT ="IDENT" // add, x, y
-	INT = "INT" // 1 2 3 
+	IDENT = "IDENT" // add, x, y
+	INT   = "INT"   // 1 2 3
 
 	// operators
-	ASSIGN = "="
-	PLUS = "+"
-	MINUS = "-"
-	BANG = "!"
+	ASSIGN   = "="
+	PLUS     = "+"
+	MINUS    = "-"
+	BANG     = "!"
 	ASTERISK = "*"
-	SLASH = "/"
-	LT = "<"
-	GT = ">"
+	SLASH    = "/"
+	LT       = "<"
+	GT       = ">"
 
 	// delimiters
-	COMMA = ","
+	COMMA     = ","
 	SEMICOLON = ";"
 
 	LPAREN = "("
@@ -34,26 +34,26 @@ const (
 	LBRACE = "{"
 	RBRACE = "}"
 
-	EQ = "=="
+	EQ     = "=="
 	NOT_EQ = "!="
 
 	// keywords
 	FUNCTION = "FUNCTION"
-	LET = "LET"
-	TRUE = "TRUE"
-	FALSE = "FALSE"
-	IF = "IF"
-	ELSE = "ELSE"
-	RETURN = "RETURN"
+	LET      = "LET"
+	TRUE     = "TRUE"
+	FALSE    = "FALSE"
+	IF       = "IF"
+	ELSE     = "ELSE"
+	RETURN   = "RETURN"
 )
 
 var keywords = map[string]TokenType{
-	"function": FUNCTION,
-	"let":  LET,
-	"true": TRUE,
-	"false": FALSE,
-	"if": IF,
-	"else": ELSE,
+	"funk":   FUNCTION,
+	"let":    LET,
+	"true":   TRUE,
+	"false":  FALSE,
+	"if":     IF,
+	"else":   ELSE,
 	"return": RETURN,
 }
 
