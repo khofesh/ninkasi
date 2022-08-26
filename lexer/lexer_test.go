@@ -2,13 +2,14 @@ package lexer
 
 import (
 	"testing"
+
 	"github.com/khofesh/ninkasi/token"
 )
 
 func TestNextToken(t *testing.T) {
 	input := `let five = 5;
 	let ten = 10;
-	let add = function(x, y) {
+	let add = funk(x, y) {
 		x + y;
 	};
 	
@@ -24,10 +25,12 @@ func TestNextToken(t *testing.T) {
 
 	10 == 10;
 	10 != 9;
+	"something"
+	"some thing"
 	`
 
 	tests := []struct {
-		expectedType token.TokenType
+		expectedType    token.TokenType
 		expectedLiteral string
 	}{
 		{token.LET, "let"},
@@ -43,7 +46,7 @@ func TestNextToken(t *testing.T) {
 		{token.LET, "let"},
 		{token.IDENT, "add"},
 		{token.ASSIGN, "="},
-		{token.FUNCTION, "function"},
+		{token.FUNCTION, "funk"},
 		{token.LPAREN, "("},
 		{token.IDENT, "x"},
 		{token.COMMA, ","},
@@ -103,6 +106,8 @@ func TestNextToken(t *testing.T) {
 		{token.NOT_EQ, "!="},
 		{token.INT, "9"},
 		{token.SEMICOLON, ";"},
+		{token.STRING, "something"},
+		{token.STRING, "some thing"},
 		{token.EOF, ""},
 	}
 
@@ -112,12 +117,12 @@ func TestNextToken(t *testing.T) {
 		tok := l.NextToken()
 
 		if tok.Type != tt.expectedType {
-			t.Fatalf("tests[%d] - tokentype wrong. expected=%q, got=%q", 
+			t.Fatalf("tests[%d] - tokentype wrong. expected=%q, got=%q",
 				i, tt.expectedType, tok.Type)
 		}
 
 		if tok.Literal != tt.expectedLiteral {
-			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q", 
+			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q",
 				i, tt.expectedLiteral, tok.Literal)
 		}
 	}

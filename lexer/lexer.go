@@ -5,10 +5,10 @@ import (
 )
 
 type Lexer struct {
-	input string
-	position int // current position in input (points to current char)
-	readPosition int // current reading position in put (after current char)
-	ch byte // current char under examination
+	input        string
+	position     int  // current position in input (points to current char)
+	readPosition int  // current reading position in put (after current char)
+	ch           byte // current char under examination
 }
 
 func (l *Lexer) readChar() {
@@ -73,6 +73,9 @@ func (l *Lexer) NextToken() token.Token {
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
+	case '"':
+		tok.Type = token.STRING
+		tok.Literal = l.readString()
 	default:
 		if isLetter(l.ch) {
 			tok.Literal = l.readIdentifier()
@@ -137,4 +140,16 @@ func New(input string) *Lexer {
 	l := &Lexer{input: input}
 	l.readChar()
 	return l
+}
+
+func (l *Lexer) readString() string {
+	position := l.position + 1
+	for {
+		l.readChar()
+		if l.ch == '"' || l.ch == 0 {
+			break
+		}
+	}
+
+	return l.input[position:l.position]
 }
