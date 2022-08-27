@@ -37,6 +37,8 @@ const (
 	LBRACKET = "["
 	RBRACKET = "]"
 
+	COLON = ":"
+
 	EQ     = "=="
 	NOT_EQ = "!="
 
