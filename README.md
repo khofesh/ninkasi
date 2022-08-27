@@ -66,3 +66,15 @@ yana
 30
 >>
 ```
+
+## MACROS
+
+```shell
+[fahmad@ryzen ninkasi]$  go run main.go
+Hello fahmad! This is the Ninkasi programming language!
+.help won't help you. We don't have enough information
+>> let unless = macro(condition, consequence, alternative) {quote(if (!(unquote(condition))) { unquote(consequence);} else { unquote(alternative); }); };
+>> unless(10 > 5, print("not greater"), print("greater"));
+greater
+null
+```
